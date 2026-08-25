@@ -1,0 +1,25 @@
+split_id,Risk_Category,Recommended_Action,N,Mean_Probability,Mean_Prediction_Risk,Students,Subjects,Proportion,Teacher_Review_Threshold,Threshold_Source
+validation,Appropriate Reinforcement,assign same-level question,10200,0.8013255689505239,0.7154604136286287,3352,251,0.16790123456790124,0.9727772255610052,final nested validation 80th percentile
+validation,High Prediction Risk,request teacher review,12150,0.5030694010429104,0.9908250430548404,3531,236,0.2,0.9727772255610052,final nested validation 80th percentile
+validation,High Risk,provide scaffold,6041,0.31879245945200874,0.8938713486784893,1855,224,0.099440329218107,0.9727772255610052,final nested validation 80th percentile
+validation,Prerequisite Review,assign easier prerequisite,6761,0.29289423550586063,0.8619396508982415,1689,205,0.11129218106995885,0.9727772255610052,final nested validation 80th percentile
+validation,Productive Challenge,assign same-level question,12505,0.6767234283834596,0.9014102132833186,3835,248,0.20584362139917695,0.9727772255610052,final nested validation 80th percentile
+validation,Too Easy,assign harder question,13093,0.9100584755320242,0.42302328493900904,2609,238,0.21552263374485597,0.9727772255610052,final nested validation 80th percentile
+temporal_test,Appropriate Reinforcement,assign same-level question,10071,0.8016162446745111,0.7148562704480863,3229,255,0.15932857662674618,0.9727772255610052,final nested validation 80th percentile
+temporal_test,High Prediction Risk,request teacher review,13079,0.5022186503934972,0.9907627704629401,3642,247,0.2069167365406825,0.9727772255610052,final nested validation 80th percentile
+temporal_test,High Risk,provide scaffold,6599,0.31027964048802437,0.8816223726694993,2076,222,0.10439968991757503,0.9727772255610052,final nested validation 80th percentile
+temporal_test,Prerequisite Review,assign easier prerequisite,8134,0.28685495587022786,0.8518249412063938,1908,220,0.12868420636301792,0.9727772255610052,final nested validation 80th percentile
+temporal_test,Productive Challenge,assign same-level question,12638,0.6764114809862959,0.9017286499395255,3788,259,0.19993988197883214,0.9727772255610052,final nested validation 80th percentile
+temporal_test,Too Easy,assign harder question,12688,0.9096673430182696,0.42433702310116517,2520,239,0.20073090857314624,0.9727772255610052,final nested validation 80th percentile
+external_unseen_student,Appropriate Reinforcement,assign same-level question,4102,0.8007369948408823,0.7166838372863347,260,225,0.18080839247145944,0.9727772255610052,final nested validation 80th percentile
+external_unseen_student,High Prediction Risk,request teacher review,4760,0.5017224860159242,0.9908608725410397,261,230,0.20981178648565257,0.9727772255610052,final nested validation 80th percentile
+external_unseen_student,High Risk,provide scaffold,1881,0.3234421381890285,0.8982098520858004,192,196,0.0829109181469564,0.9727772255610052,final nested validation 80th percentile
+external_unseen_student,Prerequisite Review,assign easier prerequisite,2000,0.30154278176912935,0.871983516183419,176,180,0.08815621280909772,0.9727772255610052,final nested validation 80th percentile
+external_unseen_student,Productive Challenge,assign same-level question,4964,0.676649838122689,0.9015073216453331,269,247,0.21880372019218056,0.9727772255610052,final nested validation 80th percentile
+external_unseen_student,Too Easy,assign harder question,4980,0.9074692557063522,0.43312916318498657,235,213,0.21950896989465332,0.9727772255610052,final nested validation 80th percentile
+external_unseen_question,Appropriate Reinforcement,assign same-level question,3673,0.7997049691251157,0.7187012557161565,1858,267,0.17121946671639007,0.9727772255610052,final nested validation 80th percentile
+external_unseen_question,High Prediction Risk,request teacher review,5141,0.5042752736145625,0.9906621389263989,2472,253,0.23965131456274474,0.9727772255610052,final nested validation 80th percentile
+external_unseen_question,High Risk,provide scaffold,1769,0.3335198279343463,0.9116510124315546,811,201,0.08246317359686743,0.9727772255610052,final nested validation 80th percentile
+external_unseen_question,Prerequisite Review,assign easier prerequisite,2267,0.30814701576390374,0.8834943291022653,1056,188,0.10567779228044005,0.9727772255610052,final nested validation 80th percentile
+external_unseen_question,Productive Challenge,assign same-level question,5330,0.6745984134354096,0.9037733727389331,2521,271,0.24846168189446205,0.9727772255610052,final nested validation 80th percentile
+external_unseen_question,Too Easy,assign harder question,3272,0.8997995382373964,0.45840368830902517,1228,238,0.15252657094909566,0.9727772255610052,final nested validation 80th percentile
