@@ -1,0 +1,100 @@
+         "Prevalence":weighted_mean(y,weights),"ROC_AUC":roc_auc_score(y,p,sample_weight=weights) if len(np.unique(y))>1 else np.nan,
+         "PR_AUC_AP":average_precision_score(y,p,sample_weight=weights) if len(np.unique(y))>1 else np.nan,
+         "Log_Loss":log_loss(y,p,labels=[0,1],sample_weight=weights),
+         "Brier_Score":float(np.average((p-y)**2,weights=weights)),
+         "ECE15":ece_score(y,p,15,weights,"uniform"),"ECE10":ece_score(y,p,10,weights,"uniform"),
+         "ECE20":ece_score(y,p,20,weights,"uniform"),"ECE15_Quantile":ece_score(y,p,15,weights,"quantile"),
+         "Calibration_Intercept":ci,"Calibration_Slope":cs,
+         "Accuracy":accuracy_score(y,z,sample_weight=weights),"Balanced_Accuracy":balanced_accuracy_score(y,z,sample_weight=weights),
+         "Precision":precision_score(y,z,sample_weight=weights,zero_division=0),"Recall":recall_score(y,z,sample_weight=weights,zero_division=0),
+         "Specificity":tn/max(tn+fp,1),"F1":f1_score(y,z,sample_weight=weights,zero_division=0),
+         "MCC":matthews_corrcoef(y,z,sample_weight=weights) if weights is None else np.nan,
+         "TP":tp,"FP":fp,"TN":tn,"FN":fn}
+    return out
+
+def equal_student_weights(users):
+    s=pd.Series(users); counts=s.value_counts(); return s.map(lambda u:1.0/counts.loc[u]).to_numpy(float)
+
+def hgb(max_iter):
+    return Pipeline([("imp",SimpleImputer(strategy="median",add_indicator=True)),
+                     ("clf",HistGradientBoostingClassifier(max_iter=max_iter,learning_rate=.1,max_leaf_nodes=31,min_samples_leaf=20,l2_regularization=2,random_state=SEED))])
+
+def fit_platt(logits_or_prob,y):
+    p=safe_p(logits_or_prob); lr=LogisticRegression(C=1000,max_iter=500,solver="lbfgs")
+    lr.fit(logit(p).reshape(-1,1),np.asarray(y,int)); return lr
+
+def apply_platt(cal,p): return expit(cal.intercept_[0]+cal.coef_[0,0]*logit(safe_p(p)))
+
+def select_calibrator(y,p):
+    y=np.asarray(y,int); p=safe_p(p)
+    candidates=[]
+    # no calibration
+    candidates.append(("none",None,p))
+    # Platt
+    pl=fit_platt(p,y); candidates.append(("platt",pl,apply_platt(pl,p)))
+    # temperature-only logistic slope (zero intercept) by scalar optimization grid
+    zz=logit(p); temps=np.geomspace(.35,3.0,81)
+    losses=[]
+    for t in temps: losses.append(log_loss(y,expit(zz/t),labels=[0,1]))
+    t=float(temps[int(np.argmin(losses))]); candidates.append(("temperature",t,expit(zz/t)))
+    rows=[]
+    for name,obj,pp in candidates:
+        rows.append({"name":name,"ROC_AUC":roc_auc_score(y,pp),"Log_Loss":log_loss(y,safe_p(pp)),"Brier":brier_score_loss(y,pp),"ECE15":ece_score(y,pp,15)})
+    tab=pd.DataFrame(rows)
+    mx=tab.ROC_AUC.max(); keep=tab[tab.ROC_AUC>=mx-.0002].sort_values(["Log_Loss","Brier","ECE15"])
+    name=keep.iloc[0]["name"]
+    chosen=[x for x in candidates if x[0]==name][0]
+    return chosen[0],chosen[1],tab
+
+def apply_calibrator(name,obj,p):
+    p=safe_p(p)
+    if name=="platt": return apply_platt(obj,p)
+    if name=="temperature": return expit(logit(p)/float(obj))
+    return p
+
+# -------------------------- data preparation -------------------------------
+
+def parse_subjects(v):
+    try:
+        x=ast.literal_eval(str(v)); return [int(z) for z in x]
+    except Exception: return []
+
+def original_cohort_users(raw_counts: pd.DataFrame, minimum=20, max_students=12000):
+    eligible=raw_counts[raw_counts.interaction_count>=minimum].copy()
+    eligible["activity_bin"]=pd.qcut(eligible.interaction_count.rank(method="first"),5,labels=["very_low","low","medium","high","very_high"])
+    # reproduce original pandas-hash cohort exactly in the stated environment
+    eligible["hash"]=pd.util.hash_pandas_object(eligible.UserId.astype(str)+"cohort",index=False).astype("uint64")
+    selected=[]
+    for _,g in eligible.groupby("activity_bin",observed=True):
+        g=g.sort_values("hash"); chosen=g[g.interaction_count.cumsum()<=90000].head(max_students//5)
+        if chosen.empty: chosen=g.head(1)
+        selected.append(chosen)
+    return pd.concat(selected,ignore_index=True)
+
+def stable_hash_cohort_users(raw_counts,n_users,salt):
+    z=raw_counts.copy(); z["stable_hash"]=z.UserId.map(lambda x:stable_u64(int(x),salt)); return z.nsmallest(n_users,"stable_hash")
+
+def load_selected_answer_meta(answer_path, answer_ids, chunksize=1_000_000):
+    ids=set(map(int,answer_ids)); parts=[]
+    for chunk in pd.read_csv(answer_path,chunksize=chunksize,low_memory=False):
+        x=pd.to_numeric(chunk["AnswerId"],errors="coerce")
+        m=x.isin(ids)
+        if m.any():
+            p=chunk.loc[m].copy(); p["AnswerId"]=x.loc[m].astype("int64"); parts.append(p)
+    out=pd.concat(parts,ignore_index=True); out=out.drop_duplicates("AnswerId",keep="last")
+    return out
+
+def enrich_cohort(rows,answer_meta,student_meta,question_meta,subject_meta):
+    d=rows.merge(answer_meta,on="AnswerId",how="left",validate="one_to_one")
+    d["DateAnswered"]=pd.to_datetime(d["DateAnswered"],errors="coerce",utc=True)
+    sm=subject_meta.copy(); sm["SubjectId"]=pd.to_numeric(sm.SubjectId,errors="coerce").astype("Int64"); sm["ParentId"]=pd.to_numeric(sm.ParentId,errors="coerce").astype("Int64")
+    level=sm.set_index("SubjectId").Level.to_dict(); parent=sm.dropna(subset=["ParentId"]).set_index("SubjectId").ParentId.astype(int).to_dict(); names=sm.set_index("SubjectId").Name.to_dict()
+    qm=question_meta.copy(); qm["subject_ids"]=qm.SubjectId.map(parse_subjects); qm["number_of_subjects"]=qm.subject_ids.map(len)
+    qm["primary_subject_id"]=qm.subject_ids.map(lambda xs:max(xs,key=lambda x:(level.get(x,-1),x)) if xs else -1)
+    qm["subject_depth"]=qm.primary_subject_id.map(lambda x:level.get(x,-1)); qm["parent_subject_id"]=qm.primary_subject_id.map(lambda x:parent.get(x,-1)); qm["primary_subject_name"]=qm.primary_subject_id.map(lambda x:names.get(x,"Unknown"))
+    d=d.merge(qm[["QuestionId","number_of_subjects","primary_subject_id","subject_depth","parent_subject_id","primary_subject_name"]],on="QuestionId",how="left",validate="many_to_one")
+    d=d.merge(student_meta,on="UserId",how="left",validate="many_to_one")
+    return d,parent,names
+
+def assign_external_holdouts(d, selected_students, student_meta):
+    prof=selected_students.merge(student_meta[["UserId","Gender","PremiumPupil"]],on="UserId",how="left")
