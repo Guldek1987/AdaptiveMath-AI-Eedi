@@ -1,4 +1,4 @@
-name: Reviewer revision dataset transfer
+name: Reviewer revision exact original cohort
 on:
   push:
     branches:
@@ -6,48 +6,47 @@ on:
   workflow_dispatch:
 
 jobs:
-  fetch-dataset:
+  cohort:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - name: Download and split official Eedi archive
+      - name: Install manuscript pandas version
+        run: python -m pip install -q pandas==3.0.2
+      - name: Download official Eedi archive
         shell: bash
         run: |
           set -euxo pipefail
-          curl -L --fail --retry 5 --retry-delay 5 \
-            -o eedi_neurips_2020_data.zip \
-            https://dqanonymousdata.blob.core.windows.net/neurips-public/data.zip
-          sha256sum eedi_neurips_2020_data.zip | tee eedi_neurips_2020_data.sha256
-          unzip -t eedi_neurips_2020_data.zip >/dev/null
-          split -b 180M -d -a 2 eedi_neurips_2020_data.zip eedi.part.
-          ls -lh eedi.part.*
+          curl -L --fail --retry 5 --retry-delay 5 -o data.zip https://dqanonymousdata.blob.core.windows.net/neurips-public/data.zip
+          unzip -q data.zip data/train_data/train_task_1_2.csv
+      - name: Reconstruct original deterministic cohort
+        shell: bash
+        run: |
+          python - <<'PY'
+          import pandas as pd, json
+          print("pandas", pd.__version__)
+          p="data/train_data/train_task_1_2.csv"
+          raw=pd.read_csv(p,usecols=["UserId"])
+          counts=raw.groupby("UserId").size().rename("interaction_count").reset_index()
+          eligible=counts[counts.interaction_count>=20].copy()
+          eligible["activity_bin"]=pd.qcut(eligible.interaction_count.rank(method="first"),5,labels=["very_low","low","medium","high","very_high"])
+          eligible["hash"]=pd.util.hash_pandas_object(eligible.UserId.astype(str)+"cohort",index=False).astype("uint64")
+          parts=[]
+          for level,g in eligible.groupby("activity_bin",observed=True):
+              g=g.sort_values("hash")
+              chosen=g[g.interaction_count.cumsum()<=90000].head(2400)
+              if chosen.empty: chosen=g.head(1)
+              parts.append(chosen)
+          sel=pd.concat(parts,ignore_index=True)
+          sel[["UserId","interaction_count","activity_bin","hash"]].to_csv("selected_original_cohort_users.csv",index=False)
+          stats={"pandas":pd.__version__,"students":int(len(sel)),"interactions":int(sel.interaction_count.sum()),"min_source_history":int(counts.interaction_count.min()),"students_lt20":int((counts.interaction_count<20).sum())}
+          open("original_cohort_stats.json","w").write(json.dumps(stats,indent=2))
+          print(stats)
+          PY
       - uses: actions/upload-artifact@v4
         with:
-          name: eedi-part-00
-          path: eedi.part.00
-          compression-level: 0
-          retention-days: 1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: eedi-part-01
-          path: eedi.part.01
-          compression-level: 0
-          retention-days: 1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: eedi-part-02
-          path: eedi.part.02
-          compression-level: 0
-          retention-days: 1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: eedi-part-03
-          path: eedi.part.03
-          compression-level: 0
-          retention-days: 1
-      - uses: actions/upload-artifact@v4
-        with:
-          name: eedi-sha256
-          path: eedi_neurips_2020_data.sha256
+          name: exact-original-cohort
+          path: |
+            selected_original_cohort_users.csv
+            original_cohort_stats.json
           retention-days: 1
