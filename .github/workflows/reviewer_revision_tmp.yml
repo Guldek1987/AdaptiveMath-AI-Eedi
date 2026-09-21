@@ -11,21 +11,43 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - name: Download official Eedi archive
+      - name: Download and split official Eedi archive
         shell: bash
         run: |
           set -euxo pipefail
           curl -L --fail --retry 5 --retry-delay 5 \
             -o eedi_neurips_2020_data.zip \
             https://dqanonymousdata.blob.core.windows.net/neurips-public/data.zip
-          ls -lh eedi_neurips_2020_data.zip
           sha256sum eedi_neurips_2020_data.zip | tee eedi_neurips_2020_data.sha256
           unzip -t eedi_neurips_2020_data.zip >/dev/null
+          split -b 180M -d -a 2 eedi_neurips_2020_data.zip eedi.part.
+          ls -lh eedi.part.*
       - uses: actions/upload-artifact@v4
         with:
-          name: eedi-neurips-2020-official-data
-          path: |
-            eedi_neurips_2020_data.zip
-            eedi_neurips_2020_data.sha256
+          name: eedi-part-00
+          path: eedi.part.00
           compression-level: 0
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eedi-part-01
+          path: eedi.part.01
+          compression-level: 0
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eedi-part-02
+          path: eedi.part.02
+          compression-level: 0
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eedi-part-03
+          path: eedi.part.03
+          compression-level: 0
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eedi-sha256
+          path: eedi_neurips_2020_data.sha256
           retention-days: 1
