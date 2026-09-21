@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Reviewer-driven technical revision pipeline for AdaptiveMath-AI.
+
+This script is deliberately self-contained so it can be executed on a clean runner.
+It does not rewrite manuscript text. It reproduces the original deterministic cohort,
+constructs reviewer-safe global-calendar/prequential features, reruns the key model
+comparisons, and exports auditable tables/predictions/figures for insertion into the
+existing six notebooks.
+"""
+from __future__ import annotations
+
+import argparse, ast, hashlib, json, math, os, platform, random, re, shutil, sys, time, warnings
+from collections import defaultdict, deque
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+
+import joblib
+import numpy as np
+import pandas as pd
+from scipy import sparse
+from scipy.special import expit, logit
+from scipy.sparse import csr_matrix
+from sklearn.calibration import calibration_curve
+from sklearn.decomposition import TruncatedSVD
+from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression, SGDClassifier
+from sklearn.metrics import (
+    accuracy_score, average_precision_score, balanced_accuracy_score,
+    brier_score_loss, confusion_matrix, f1_score, log_loss,
+    matthews_corrcoef, precision_score, recall_score, roc_auc_score,
+)
+from sklearn.model_selection import StratifiedGroupKFold
+from sklearn.pipeline import Pipeline
+
+warnings.filterwarnings("ignore", category=FutureWarning)
+SEED = 20260713
+np.random.seed(SEED); random.seed(SEED)
+
+# ---------------------------- utilities ------------------------------------
+
+def stable_u64(value, salt=""):
+    b = (str(value) + "|" + salt).encode("utf-8")
+    return int.from_bytes(hashlib.sha256(b).digest()[:8], "big", signed=False)
+
+def sha256_file(path: Path, chunk=1<<20):
+    h=hashlib.sha256()
+    with path.open("rb") as f:
+        for x in iter(lambda:f.read(chunk), b""):
+            h.update(x)
+    return h.hexdigest()
+
+def locate(root: Path, pattern: str) -> Path:
+    matches=sorted(p for p in root.rglob(pattern) if "__MACOSX" not in p.parts and not p.name.startswith("._"))
+    if not matches: raise FileNotFoundError(pattern)
+    return matches[0]
+
+def safe_p(p): return np.clip(np.asarray(p, float), 1e-6, 1-1e-6)
+
+def weighted_mean(x,w=None):
+    x=np.asarray(x,float)
+    if w is None: return float(np.mean(x))
+    w=np.asarray(w,float); return float(np.sum(w*x)/np.sum(w))
+
+def ece_score(y,p,bins=15,weights=None, strategy="uniform"):
+    y=np.asarray(y,int); p=safe_p(p)
+    if weights is None: weights=np.ones(len(y),float)
+    else: weights=np.asarray(weights,float)
+    if strategy=="quantile":
+        # deterministic empirical quantiles; collapse duplicate boundaries
+        edges=np.unique(np.quantile(p,np.linspace(0,1,bins+1)))
+        if len(edges)<3: return np.nan
+        ids=np.searchsorted(edges[1:-1],p,side="right")
+    else:
+        ids=np.minimum((p*bins).astype(int),bins-1)
+    total=weights.sum(); out=0.; mce=0.
+    for b in np.unique(ids):
+        m=ids==b
+        sw=weights[m].sum()
+        if sw<=0: continue
+        obs=np.sum(weights[m]*y[m])/sw; pred=np.sum(weights[m]*p[m])/sw
+        gap=abs(obs-pred); out += sw/total*gap; mce=max(mce,gap)
+    return float(out)
+
+def calibration_slope_intercept(y,p,weights=None):
+    y=np.asarray(y,int); p=safe_p(p); x=logit(p).reshape(-1,1)
+    try:
+        lr=LogisticRegression(C=1e6,max_iter=500,solver="lbfgs")
+        lr.fit(x,y,sample_weight=weights)
+        return float(lr.intercept_[0]), float(lr.coef_[0,0])
+    except Exception:
+        return np.nan,np.nan
+
+def metric_row(model,scenario,y,p,users=None,questions=None,weights=None):
+    y=np.asarray(y,int); p=safe_p(p); z=(p>=.5).astype(int)
+    tn,fp,fn,tp=confusion_matrix(y,z,labels=[0,1],sample_weight=weights).ravel()
+    ci,cs=calibration_slope_intercept(y,p,weights)
+    out={"Model":model,"Scenario":scenario,"N":len(y),"Students":pd.Series(users).nunique() if users is not None else np.nan,
+         "Questions":pd.Series(questions).nunique() if questions is not None else np.nan,
