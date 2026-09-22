@@ -1,0 +1,25 @@
+model,seed,learning_rate,epochs,stop_reason,initialization_hash,development_loss,seconds,fit_rows,target_rows,history_length,canonical_SOTA,l2,question_encoding
+DKT-inspired GRU proxy,20260713,0.001,5.0,early_stopping_patience,65128dde41cc6a9ca02272718f6b7a30c74b7014ef00a1b470805902a810b169,0.6398498679287605,69.96638808300486,119574,143565,30,False,,
+DKT-inspired GRU proxy,20260713,0.0003,8.0,early_stopping_patience,65128dde41cc6a9ca02272718f6b7a30c74b7014ef00a1b470805902a810b169,0.6460978374300734,108.07504208298633,119574,143565,30,False,,
+SAKT-inspired attention proxy,20260713,0.001,6.0,early_stopping_patience,5b32374252c5ef8d58ef4a3a45abef1a836815952de3fb714c76d065cb1557b5,0.6462825361656794,49.6938022079994,119574,143565,30,False,,
+SAKT-inspired attention proxy,20260713,0.0003,6.0,early_stopping_patience,5b32374252c5ef8d58ef4a3a45abef1a836815952de3fb714c76d065cb1557b5,0.6558010812267593,47.14938387501752,119574,143565,30,False,,
+HGB80,20260713,,,fixed_tree_budget,,0.5814964402654892,,119574,143565,30,,1.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB80,20260713,,,fixed_tree_budget,,0.5811947549126429,,119574,143565,30,,2.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB100,20260713,,,fixed_tree_budget,,0.5819684524163646,,119574,143565,30,,1.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB100,20260713,,,fixed_tree_budget,,0.5815898480031068,,119574,143565,30,,2.0,same categorical identities encoded as numeric indices; not ordered knowledge
+DKT-inspired GRU proxy,20260714,0.001,5.0,early_stopping_patience,b45b58220a878abcf410bd455b117bf6d9b7d228a8a5984c5ad7143b02e92278,0.642179796349458,67.42141841701232,119574,143565,30,False,,
+DKT-inspired GRU proxy,20260714,0.0003,8.0,early_stopping_patience,b45b58220a878abcf410bd455b117bf6d9b7d228a8a5984c5ad7143b02e92278,0.6457548697788515,108.46586241701152,119574,143565,30,False,,
+SAKT-inspired attention proxy,20260714,0.001,5.0,early_stopping_patience,43e02d1f444317edf2434b05170c32f500110c5cbf1a5764e6a3624a2cae3c09,0.6390138577696719,38.69239054201171,119574,143565,30,False,,
+SAKT-inspired attention proxy,20260714,0.0003,9.0,early_stopping_patience,43e02d1f444317edf2434b05170c32f500110c5cbf1a5764e6a3624a2cae3c09,0.6462267269230237,70.39935879199766,119574,143565,30,False,,
+HGB80,20260714,,,fixed_tree_budget,,0.5814964402654892,,119574,143565,30,,1.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB80,20260714,,,fixed_tree_budget,,0.5811947549126429,,119574,143565,30,,2.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB100,20260714,,,fixed_tree_budget,,0.5819684524163646,,119574,143565,30,,1.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB100,20260714,,,fixed_tree_budget,,0.5815898480031068,,119574,143565,30,,2.0,same categorical identities encoded as numeric indices; not ordered knowledge
+DKT-inspired GRU proxy,20260715,0.001,6.0,early_stopping_patience,c53a52bf809154bc1eaabc07e36f76c27f6b58e8983c180f9e5bec2fae851ce9,0.6388512124937351,80.51211558299838,119574,143565,30,False,,
+DKT-inspired GRU proxy,20260715,0.0003,6.0,early_stopping_patience,c53a52bf809154bc1eaabc07e36f76c27f6b58e8983c180f9e5bec2fae851ce9,0.6488320574249447,81.47623162501259,119574,143565,30,False,,
+SAKT-inspired attention proxy,20260715,0.001,5.0,early_stopping_patience,ab74cac0650f0894dfb806586e23695ff6a21e762d1ab6c457de52aab148ba53,0.6437938601250862,39.246563000022434,119574,143565,30,False,,
+SAKT-inspired attention proxy,20260715,0.0003,8.0,early_stopping_patience,ab74cac0650f0894dfb806586e23695ff6a21e762d1ab6c457de52aab148ba53,0.6528620709098641,62.85694079200039,119574,143565,30,False,,
+HGB80,20260715,,,fixed_tree_budget,,0.5814964402654892,,119574,143565,30,,1.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB80,20260715,,,fixed_tree_budget,,0.5811947549126429,,119574,143565,30,,2.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB100,20260715,,,fixed_tree_budget,,0.5819684524163646,,119574,143565,30,,1.0,same categorical identities encoded as numeric indices; not ordered knowledge
+HGB100,20260715,,,fixed_tree_budget,,0.5815898480031068,,119574,143565,30,,2.0,same categorical identities encoded as numeric indices; not ordered knowledge

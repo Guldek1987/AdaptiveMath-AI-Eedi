@@ -1,27 +1,30 @@
-# Eedi dataset access
+# Data and runtime prerequisites
 
-The raw Eedi / NeurIPS 2020 Education Challenge data are intentionally not mirrored in this repository. This keeps access tied to the official source and its licensing conditions and avoids redistributing learner-level or transformed records.
+The published notebooks preserve the current executed source and outputs exactly. Viewing their saved results requires no dataset download. Executing their code requires the original runtime inputs; this package is not a standalone data-and-model archive.
 
-Notebook [`01_dataset_acquisition_and_research_design.ipynb`](../notebooks/01_dataset_acquisition_and_research_design.ipynb) downloads and validates the official archives from:
+## Official source
 
-- Project page: <https://www.eedischool.com/projects/neurips-education-challenge>
-- Data archive: <https://dqanonymousdata.blob.core.windows.net/neurips-public/data.zip>
-- Starter kit: <https://dqanonymousdata.blob.core.windows.net/neurips-public/starter_kit.zip>
+- [Eedi / NeurIPS Education Challenge project](https://www.eedischool.com/projects/neurips-education-challenge)
+- [Official data archive](https://dqanonymousdata.blob.core.windows.net/neurips-public/data.zip)
 
-The official project page identifies the dataset license as **CC BY-NC-ND 4.0**. Use the data for non-commercial research only, retain attribution, review the current terms on the official page, and do not redistribute question images.
+Consult the original provider for the applicable access and reuse terms. This publication update does not newly redistribute learner-level records.
 
-During execution, the notebooks create the following ignored runtime directories:
+## Runtime dependencies of the unchanged source
 
-```text
-dataset/
-├── raw/
-│   ├── archives/
-│   └── extracted/
-└── processed/
-```
+| Input or artifact | Original path | Included here? |
+|---|---|---|
+| Official extracted CSVs | `Data/Raw/Extracted/data/` | No |
+| Historical modeling cohort | `Data/Unified/modeling_dataset.parquet` | No |
+| Event, feature, split and prediction Parquets | `Data/` | No |
+| Fitted model objects | `Models/` | No |
+| Historical source notebooks and helper provenance | `Data/legacy/` | No |
+| Complete runtime provenance | `Tables/manifests/` | Six selected descriptive manifests only |
+| Original technical protocol plan | External local path retained in Notebook 02 | No |
+| Selected aggregate results and figures | `artifacts/`, `figures/` | Yes |
+| Current notebook source and saved outputs | `notebooks/` | Yes, unchanged |
 
-Run Notebooks 01 and 02 before any model notebook. No local data file is required before the first run.
+The word “download” in the first notebook's filename is historical: it must not be interpreted as a verified automatic fresh-clone download workflow. Merely downloading the official archive does not reconstruct every missing frozen object, historical file or cross-stage artifact.
 
-Recommended dataset citation:
+The supplied `Data → dataset` and `Tables → artifacts` aliases preserve original path conventions. Case-sensitive systems also require `Notebooks → notebooks`, `Figures → figures` and `Models → models` aliases. Dependencies must still be provisioned and verified before any execution.
 
-> Wang, Z., Lamb, A., Saveliev, E., et al. (2021). Results and Insights from Diagnostic Questions: The NeurIPS 2020 Education Challenge. *Proceedings of Machine Learning Research*, 133, 191–205. <https://proceedings.mlr.press/v133/wang21a.html>
+[notebook_snapshot.json](notebook_snapshot.json) records SHA-256 checksums and source-relative paths of the 44 copied scientific files. It verifies snapshot identity, not complete runtime reproducibility. No experiments were rerun during synchronization.

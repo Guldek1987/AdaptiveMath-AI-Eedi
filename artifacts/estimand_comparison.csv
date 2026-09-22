@@ -1,0 +1,11 @@
+model,AUC_mean_probabilities,mean_seed_AUC,seed_AUC_SD,seed_AUC_q025,seed_AUC_q975,training_variability_scope
+Ablation_no_question,0.7595930516351717,0.7595930516357573,1.1702778228589004e-16,0.7595930516357572,0.7595930516357572,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+Ablation_no_subject,0.764086315314012,0.7640863153145949,0.0,0.7640863153145949,0.7640863153145949,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+AdaptiveMath-AI,0.7641311173169967,0.7641311173175793,0.0,0.7641311173175793,0.7641311173175793,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+Converged_item_intercept,0.7642940189277763,0.764294018928359,0.0,0.764294018928359,0.764294018928359,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+HGB100,0.7599490189992795,0.7598048004643683,8.050327274153682e-05,0.7596929050136798,0.7599005164453253,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+HGB80,0.760164052118445,0.7600412317281753,7.778924880567171e-05,0.7599423802133554,0.7601474895539864,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+HGB80_anchor,0.759586499591735,0.7595864995923207,1.1702778228589004e-16,0.7595864995923206,0.7595864995923206,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+No_calibration,0.7642198955021228,0.7642198955027053,0.0,0.7642198955027053,0.7642198955027053,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+Plus_hierarchy,0.7642198955021228,0.7642198955027053,0.0,0.7642198955027053,0.7642198955027053,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.
+Plus_question_memory,0.7642968029111945,0.7642968029117772,0.0,0.7642968029117772,0.7642968029117772,Fixed temporal splits and deterministic HGB may produce identical seed fits; not independent datasets.

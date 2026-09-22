@@ -1,0 +1,6 @@
+{
+  "fit_end_exclusive": "2018-12-01",
+  "fit_rows": 61011,
+  "row_ids_hash": "470311243a9af1cce6088267bb2d33f010a2606548c7791458c5399f32bb91c1",
+  "transform_on_supervised_rows": "Frozen strictly earlier exposure factors; learner vector updates only after permitted exposures."
+}

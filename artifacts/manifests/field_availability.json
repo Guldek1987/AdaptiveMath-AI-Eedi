@@ -1,0 +1,59 @@
+{
+  "QuestionId": {
+    "status": "pre-response",
+    "basis": "Target question identity is required by the task."
+  },
+  "UserId": {
+    "status": "pre-response",
+    "basis": "Learner identity is required by the task."
+  },
+  "subject_metadata": {
+    "status": "pre-response-assumption",
+    "basis": "Static content hierarchy; no version-time provenance available."
+  },
+  "DateAnswered": {
+    "status": "post-response",
+    "basis": "Recorded answer completion timestamp; no separate presentation/prediction timestamp exists in supplied schemas."
+  },
+  "AnswerId": {
+    "status": "unknown",
+    "basis": "Alignment key only, never temporal tie ordering evidence."
+  },
+  "IsCorrect": {
+    "status": "post-response",
+    "basis": "Response outcome."
+  },
+  "AnswerValue": {
+    "status": "post-response",
+    "basis": "Chosen response."
+  },
+  "Confidence": {
+    "status": "post-response",
+    "basis": "Response-associated confidence."
+  },
+  "GroupId_QuizId_SchemeOfWorkId": {
+    "status": "unknown",
+    "basis": "Answer metadata; availability at prediction time not documented; excluded as current predictors."
+  },
+  "demographics": {
+    "status": "unknown",
+    "basis": "Snapshot effective dates unknown; subgroup descriptors only."
+  },
+  "current_completion_time_features": {
+    "status": "excluded",
+    "fields": [
+      "hour",
+      "day_of_week",
+      "month",
+      "age_at_answer",
+      "days_since_previous_interaction",
+      "days_since_previous_subject_interaction",
+      "session_position",
+      "new_session",
+      "inactivity_gap"
+    ],
+    "basis": "No trustworthy prediction-time timestamp."
+  },
+  "presentation_time_present": false,
+  "interpretation": "Completion-ordered prequential diagnostic; concurrent presentations cannot be reconstructed."
+}

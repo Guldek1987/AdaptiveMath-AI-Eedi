@@ -1,0 +1,12 @@
+{
+  "before": "Emit every feature for a timestamp batch before any updates from that batch.",
+  "global_and_item": "Prefix fit labels only; no evaluation label updates.",
+  "learner_feedback": "Known completed responses update learner and concept states after the timestamp batch.",
+  "outcome_free": "Exposure/collaborative counts update after batch; label-dependent states freeze after fitting period.",
+  "no_feedback": "No learner/exposure/session state updates after fitting period.",
+  "ties": "Symmetric batch: summed Elo increments at prebatch predictions, EWM decay^n with batch mean, BKT batch likelihood and symmetric n-opportunity transition.",
+  "ewm": "E0=0.5; singleton E=0.15*y+0.85*E",
+  "sessions": "No current-session predictors without presentation timestamps; no implicit session updates.",
+  "collaborative": "Average frozen early item vectors for permitted known-question exposures.",
+  "primary_subject_rule": "Maximum depth, then maximum SubjectId."
+}

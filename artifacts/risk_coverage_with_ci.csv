@@ -1,0 +1,25 @@
+model,policy,budget,coverage,risk,lower,upper,B_valid,CI_scope
+AdaptiveMath-AI,entropy,0.05,0.9500017413715042,0.2694245052680974,0.2615417437025243,0.2771258775187656,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,one_minus_p,0.05,0.9500017413715042,0.28150043625858767,0.27294123159155487,0.2897716947123249,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,random_expectation,0.05,0.9500017413715042,0.28050708738202207,0.27997536422093017,0.281038515401028,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+AdaptiveMath-AI,entropy,0.1,0.9000034827430083,0.25870488897832195,0.25085630794628355,0.2663110028994466,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,one_minus_p,0.1,0.9000034827430083,0.27964770255941923,0.27082518936547806,0.28829124156361335,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,random_expectation,0.1,0.9000034827430083,0.28050708738202207,0.2797328359479603,0.28128071573961566,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+AdaptiveMath-AI,entropy,0.2,0.8,0.2373750565945739,0.22975294205349792,0.2449313808255947,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,one_minus_p,0.2,0.8,0.26689130359070806,0.2578056442562389,0.2758640288481165,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,random_expectation,0.2,0.8,0.28050708738202207,0.2793421098457145,0.2816668408038171,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+AdaptiveMath-AI,entropy,0.3,0.7000034827430084,0.21519264448336253,0.20783594450478826,0.22275257467360038,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,one_minus_p,0.3,0.7000034827430084,0.2382482884890941,0.22949733990257337,0.24681854411322407,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+AdaptiveMath-AI,random_expectation,0.3,0.7000034827430084,0.28050708738202207,0.27898622830759434,0.28203112561694,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+HGB100,entropy,0.05,0.9500017413715042,0.272086049256894,0.26398595606031444,0.2799948782774964,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,one_minus_p,0.05,0.9500017413715042,0.2833334555346184,0.27462160942542563,0.2917011757913986,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,random_expectation,0.05,0.9500017413715042,0.28265245707519243,0.282116330735334,0.2831868139925359,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+HGB100,entropy,0.1,0.9000034827430083,0.26168455757725856,0.2537578645291311,0.2694836457768155,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,one_minus_p,0.1,0.9000034827430083,0.28117236415419977,0.27215866378106135,0.28985830826576886,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,random_expectation,0.1,0.9000034827430083,0.28265245707519243,0.281876649459403,0.2834245292510584,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+HGB100,entropy,0.2,0.8,0.24066624873750567,0.23303991228482665,0.24837760768136777,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,one_minus_p,0.2,0.8,0.26809284992860377,0.2587385411833868,0.2772375313396502,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,random_expectation,0.2,0.8,0.28265245707519243,0.28148399679587643,0.2838174346115,,exact finite-population random-selection interval; not a fitted-procedure confidence interval
+HGB100,entropy,0.3,0.7000034827430084,0.21926245820729184,0.2117283373666811,0.22694141278034413,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,one_minus_p,0.3,0.7000034827430084,0.2400195032638115,0.23112578227084826,0.24873917904058573,5000.0,student bootstrap conditional on fixed diagnostic top-k set
+HGB100,random_expectation,0.3,0.7000034827430084,0.28265245707519243,0.28112561693997773,0.28418046489412513,,exact finite-population random-selection interval; not a fitted-procedure confidence interval

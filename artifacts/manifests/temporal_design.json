@@ -1,0 +1,20 @@
+{
+  "budget": {
+    "seeds": 10,
+    "outer": 5,
+    "inner": 4
+  },
+  "outer_edges": [
+    "2019-11-01 00:00:00+00:00",
+    "2019-12-01 00:00:00+00:00",
+    "2020-01-01 00:00:00+00:00",
+    "2020-02-01 00:00:00+00:00",
+    "2020-03-01 00:00:00+00:00",
+    "2020-04-30 00:00:00+00:00"
+  ],
+  "outer_fit_rule": "All supervised events before outer evaluation start; chronological 60/20/20 anchor/memory/calibration partitions.",
+  "inner_rule": "4 expanding timestamp folds; each inner-fit is partitioned chronologically 60/20/20.",
+  "opportunities": "Both HGB iteration budgets get identical 2 l2 candidates and 3 calibrators. Adaptive anchor gets same l2 candidates plus declared memory/fallback grids. Additional component tuning is disclosed, not described as equal candidate counts.",
+  "fold_feedback": "Completed earlier outcomes are allowed learner feedback; item parameters fixed from representation window.",
+  "original_grouped_analysis": "Legacy diagnostic retained in snapshot; not called global-time validation."
+}
