@@ -1,0 +1,20 @@
+{
+  "input_hash": "6ab81f36fb70297e79b19a38647d51b0f2dd7e5f6a197150633a02ee91eaf7ac",
+  "helper_sha256": "4ca2c9622694667eaaef0f6e78a3e3685d04ecfd14444aa21a77a166fc6555d6",
+  "B": 5000,
+  "seed": 20260713,
+  "common_student_weights_across_windows": true,
+  "models": [
+    "AdaptiveMath-AI",
+    "HGB80",
+    "HGB100",
+    "Ablation_no_question",
+    "Ablation_no_subject",
+    "Question_only",
+    "RecentQuestionRateControl",
+    "Converged_item_intercept",
+    "No_calibration"
+  ],
+  "fitting_analysis_source_sha256": "3932c80b9aa8ef89050c2449ea45d844ce326985d7c41e38dca37c425105567a",
+  "source_layout_note": "Bootstrap and metric function ASTs identical; only notebook layout, rendering and provenance lookup changed."
+}

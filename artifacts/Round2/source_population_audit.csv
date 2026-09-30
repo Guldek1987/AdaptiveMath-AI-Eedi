@@ -1,0 +1,3 @@
+population,interactions,students,questions,prevalence,student_min,student_Q1,student_median,student_Q3,student_IQR,question_median,question_fraction_le5,question_fraction_le10,question_fraction_le20,unique_pairs
+raw,15867850,118971,27613,0.6429503051768198,29,57.0,88.0,159.0,102.0,281.0,0.0,0.0,0.0,15867850
+eligible_ge20,15867850,118971,27613,0.6429503051768198,29,57.0,88.0,159.0,102.0,281.0,0.0,0.0,0.0,15867850

@@ -1,0 +1,31 @@
+{
+  "features": [
+    "prior_interaction_count",
+    "prior_correct_count",
+    "prior_cumulative_accuracy",
+    "rolling_accuracy_5",
+    "rolling_accuracy_20",
+    "rolling_accuracy_50",
+    "ewm_accuracy",
+    "prior_subject_opportunities",
+    "prior_subject_accuracy",
+    "bkt_mastery",
+    "elo_student_ability",
+    "elo_probability",
+    "question_historical_accuracy",
+    "question_difficulty",
+    "question_popularity_past",
+    "rasch_ability",
+    "rasch_question_difficulty",
+    "subject_historical_accuracy",
+    "student_question_similarity",
+    "matrix_factorization_score",
+    "collaborative_state_norm",
+    "subject_depth"
+  ],
+  "feature_hash": "b8b75fc0d556d2cb8b0411d174b2c94d4762d825d1a5b16885ed4df83e015550",
+  "helper_hash": "5abd7ebb95fd32094e258ec5fa7b0c091f62da68a0165ed37544b450ef0121c6",
+  "input_hash": "3305f4aae7b4659269444171c443380fc005f16e3f5b635a47478df6f35cc8fa",
+  "split_hash": "11c424db339d29a42fe538a198545b57bc281d350ff64195c3a1cca6a5e63146",
+  "protocol_hash": "051fa1e22ed7f121527d251303918a6af5f81d469210ffc27e78597aee7f8fed"
+}

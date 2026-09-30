@@ -1,0 +1,39 @@
+{
+  "provider": "Eedi NeurIPS 2020 Education Challenge",
+  "provider_url": "https://www.eedischool.com/projects/neurips-education-challenge",
+  "archive_url": "https://dqanonymousdata.blob.core.windows.net/neurips-public/data.zip",
+  "license": "CC BY-NC-ND 4.0; provider also restricts question images",
+  "redistributed_records": false,
+  "files": [
+    {
+      "official_archive_path": "data/train_data/train_task_1_2.csv",
+      "local_path": "dataset/Raw/Extracted/data/train_data/train_task_1_2.csv",
+      "bytes": 430049940,
+      "sha256": "721ebae1c5ddb3f8a4c85a437893216bbba1d8b2ca950ee0681d1f3e98ebdc0e"
+    },
+    {
+      "official_archive_path": "data/metadata/answer_metadata_task_1_2.csv",
+      "local_path": "dataset/Raw/Extracted/data/metadata/answer_metadata_task_1_2.csv",
+      "bytes": 1019436477,
+      "sha256": "d5ea21e12f03829f1786d666f07b80fdbbdc670096b6757955792bb72547e06f"
+    },
+    {
+      "official_archive_path": "data/metadata/question_metadata_task_1_2.csv",
+      "local_path": "dataset/Raw/Extracted/data/metadata/question_metadata_task_1_2.csv",
+      "bytes": 741225,
+      "sha256": "673aabe79e8dba2cf82e4bf87221796f2672c1ad264c9e08e2a99bf235704a12"
+    },
+    {
+      "official_archive_path": "data/metadata/student_metadata_task_1_2.csv",
+      "local_path": "dataset/Raw/Extracted/data/metadata/student_metadata_task_1_2.csv",
+      "bytes": 3273103,
+      "sha256": "a1678aad3726d781dc28dd17ffa18176d3234170cfd94f60b4f4e0223d8218be"
+    },
+    {
+      "official_archive_path": "data/metadata/subject_metadata.csv",
+      "local_path": "dataset/Raw/Extracted/data/metadata/subject_metadata.csv",
+      "bytes": 13527,
+      "sha256": "d576a6eccc171d8eb82a284a9586c27b2bd9941f39f3fcd6ae1110470766f202"
+    }
+  ]
+}

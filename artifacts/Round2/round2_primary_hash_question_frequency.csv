@@ -1,0 +1,2 @@
+interactions,unique_questions,min,Q1,median,Q3,IQR,max,number_questions_le5,fraction_questions_le5,number_questions_le10,fraction_questions_le10,number_questions_le20,fraction_questions_le20,cohort_id,cohort_sha256,AnswerId_set_hash
+385037,25899,1,3.0,8.0,22.0,19.0,157,10785,0.4164253446078999,14626,0.5647322290435924,18799,0.7258581412409746,revision_v2_primary,3305f4aae7b4659269444171c443380fc005f16e3f5b635a47478df6f35cc8fa,220ee1d3bfe7ecc692d6a42d9d8247c749d76c94332b8427bc48595189987df0

@@ -1,0 +1,4 @@
+model,pooled_AUC_secondary_only,macro_within_window_AUC,response_weighted_within_window_AUC,same_window_pairs,cross_window_pairs,same_window_pair_fraction,cross_window_pair_fraction,interpretation
+AdaptiveMath-AI,0.7642476607260462,0.7611728680116844,0.7617737751812205,817326261,3887083943,0.17373618063855387,0.8262638193614461,Pooled score is a secondary cross-window ranking diagnostic.
+HGB80,0.7601465062426253,0.7569272154504109,0.757494817295055,817326261,3887083943,0.17373618063855387,0.8262638193614461,Pooled score is a secondary cross-window ranking diagnostic.
+HGB100,0.7600422124037117,0.7568333895144694,0.7574630688971192,817326261,3887083943,0.17373618063855387,0.8262638193614461,Pooled score is a secondary cross-window ranking diagnostic.

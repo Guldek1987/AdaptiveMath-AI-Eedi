@@ -1,0 +1,20 @@
+{
+  "budget": {
+    "seeds": 10,
+    "outer": 6,
+    "inner": 4
+  },
+  "outer_edges": [
+    "2019-11-01 00:00:00+00:00",
+    "2019-12-01 00:00:00+00:00",
+    "2020-01-01 00:00:00+00:00",
+    "2020-02-01 00:00:00+00:00",
+    "2020-03-01 00:00:00+00:00",
+    "2020-04-01 00:00:00+00:00",
+    "2020-04-30 00:00:00+00:00"
+  ],
+  "outer_fit_rule": "Strictly earlier completed events; 60/20/20 anchor/memory/calibration by unique timestamps.",
+  "inner_rule": "Four expanding time folds; independently selected component parameters and calibrators.",
+  "primary_estimand": "Equal-window macro mean of six within-window AUC differences.",
+  "mechanism_pair": "Question_only and RecentQuestionRateControl share the selected HGB80 anchor and memory block."
+}
